@@ -1,6 +1,7 @@
 package hr.algebra.iisproject.controllers;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,33 +16,25 @@ import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Controller
+@RestController
 @RequestMapping("/api/xsd")
 public class ControllerXSD {
-    @GetMapping("/upload")
-    public String showForm() {
-        return "upload";
-    }
-
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) throws SAXException {
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            model.addAttribute("message", "Please select a file to upload.");
-            return "upload";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please select a file to upload.");
         }
-
-        Validator validator = initValidator();
 
         try {
+            Validator validator = initValidator();
             InputStream inputStream = file.getInputStream();
             validator.validate(new StreamSource(inputStream));
-            model.addAttribute("message", "Valid XML!");
+            return ResponseEntity.ok("XML is valid.");
         } catch (SAXException e) {
-            model.addAttribute("message", "Error validating file: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error validating file: " + e.getMessage());
         } catch (IOException e) {
-            model.addAttribute("message", "Error reading file: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error reading file: " + e.getMessage());
         }
-        return "upload";
     }
 
     private Validator initValidator() throws SAXException {
