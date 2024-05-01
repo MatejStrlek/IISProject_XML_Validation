@@ -1,24 +1,57 @@
 <TvMovieShows>
-<TvMovieShow>
-    <Title>2 Stupid Dogs</Title>
-    <Episodes>26</Episodes>
-    <Year>1993-1995</Year>
-    <OriginalChannel>TBS</OriginalChannel>
-    <AmericanCompany>Hanna-Barbera</AmericanCompany>
-    <Note>some note</Note>
-    <Technique>Traditional</Technique>
-    <IMDb>7.2</IMDb>
-    <GoogleUsers>91%</GoogleUsers>
-</TvMovieShow>
-<TvMovieShow>
-    <Title>2 Stupid Dogs</Title>
-    <Episodes>26</Episodes>
-    <Year>1993-1995</Year>
-    <OriginalChannel>TBS</OriginalChannel>
-    <AmericanCompany>Hanna-Barbera</AmericanCompany>
-    <Note>some note</Note>
-    <Technique>Traditional</Technique>
-    <IMDb>7.2</IMDb>
-    <GoogleUsers>91%</GoogleUsers>
-</TvMovieShow>
+    <TvMovieShow>
+        <Title>3-South</Title>
+        <Episodes>13</Episodes>
+        <Year>2002-2003</Year>
+        <OriginalChannel>MTV</OriginalChannel>
+        <AmericanCompany>Warner Bros. AnimationMTV Animation</AmericanCompany>
+        <Note></Note>
+        <Technique>Traditional</Technique>
+        <IMDb>8</IMDb>
+        <GoogleUsers>87%</GoogleUsers>
+    </TvMovieShow>
+    <TvMovieShow>
+        <Title>3Below: Tales of Arcadia</Title>
+        <Episodes>28</Episodes>
+        <Year>2018-2019</Year>
+        <OriginalChannel>Netflix</OriginalChannel>
+        <AmericanCompany>DreamWorks Animation Television</AmericanCompany>
+        <Note></Note>
+        <Technique>CGI</Technique>
+        <IMDb>7.6</IMDb>
+        <GoogleUsers>77%</GoogleUsers>
+    </TvMovieShow>
+    <TvMovieShow>
+        <Title>3rd and Bird</Title>
+        <Episodes>51</Episodes>
+        <Year>2008-2010</Year>
+        <OriginalChannel>Playhouse Disney</OriginalChannel>
+        <AmericanCompany>Little Airplane Productions</AmericanCompany>
+        <Note>British co-production</Note>
+        <Technique>Flash</Technique>
+        <IMDb>7.8</IMDb>
+        <GoogleUsers>92%</GoogleUsers>
+    </TvMovieShow>
+    <TvMovieShow>
+        <Title>The 7D</Title>
+        <Episodes>44</Episodes>
+        <Year>2014-2016</Year>
+        <OriginalChannel>Disney XD</OriginalChannel>
+        <AmericanCompany>Disney Television Animation</AmericanCompany>
+        <Note></Note>
+        <Technique>Traditional</Technique>
+        <IMDb>5.7</IMDb>
+        <GoogleUsers>85%</GoogleUsers>
+    </TvMovieShow>
+    <TvMovieShow>
+        <Title>12 oz. Mouse</Title>
+        <Episodes>31</Episodes>
+        <Year>2005-2020</Year>
+        <OriginalChannel>Adult Swim</OriginalChannel>
+        <AmericanCompany>Williams Street</AmericanCompany>
+        <Note></Note>
+        <Technique>Flash</Technique>
+        <IMDb>6.5</IMDb>
+        <GoogleUsers>72%</GoogleUsers>
+    </TvMovieShow>
 </TvMovieShows>

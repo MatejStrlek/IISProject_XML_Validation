@@ -1,13 +1,19 @@
 package hr.algebra.iisproject.controllers;
 
+import hr.algebra.iisproject.models.TvMovieShow;
+import hr.algebra.iisproject.services.TvMovieShowService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
+import utils.XmlUtil;
 
 import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBException;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -19,6 +25,12 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("/api/xsd")
 public class ControllerXSD {
+    private final TvMovieShowService tvMovieShowService;
+
+    public ControllerXSD(TvMovieShowService tvMovieShowService) {
+        this.tvMovieShowService = tvMovieShowService;
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -29,6 +41,12 @@ public class ControllerXSD {
             Validator validator = initValidator();
             InputStream inputStream = file.getInputStream();
             validator.validate(new StreamSource(inputStream));
+
+            /*inputStream = file.getInputStream();
+            TvMovieShow tvMovieShow = XmlUtil.parseXmlToEntity(inputStream);
+
+            tvMovieShowService.saveTvMovieShow(tvMovieShow);*/
+
             return ResponseEntity.ok("XML is valid.");
         } catch (SAXException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error validating file: " + e.getMessage());
@@ -43,5 +61,7 @@ public class ControllerXSD {
         Schema schema = factory.newSchema(schemaFile);
         return schema.newValidator();
     }
+
+
 }
 
