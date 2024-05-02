@@ -24,7 +24,7 @@ public class TvMovieShow {
     @Column(name = "episodes")
     private int episodes;
     @XmlElement(name = "Year")
-    @Column(name = "year")
+    @Column(name = "year_made")
     private String year;
     @XmlElement(name = "OriginalChannel")
     @Column(name = "original_channel")
