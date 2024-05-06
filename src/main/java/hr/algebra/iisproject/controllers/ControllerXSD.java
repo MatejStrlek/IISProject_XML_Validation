@@ -46,7 +46,8 @@ public class ControllerXSD {
             TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStreamParsing);
             inputStreamParsing.close();
 
-            tvMovieShowService.saveTvMovieShows(tvMovieShows);
+            //TODO: save to database
+            //tvMovieShowService.saveTvMovieShows(tvMovieShows);
 
             return ResponseEntity.ok("XML is valid.");
         } catch (SAXException e) {
