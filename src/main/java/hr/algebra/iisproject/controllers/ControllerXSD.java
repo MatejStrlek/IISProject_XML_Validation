@@ -39,22 +39,28 @@ public class ControllerXSD {
 
         try {
             Validator validator = XmlUtils.initXSDValidator(getClass().getClassLoader().getResourceAsStream("XSDValidator/tvMovieShows.xsd"));
-            InputStream inputStream = file.getInputStream();
-            validator.validate(new StreamSource(inputStream));
 
-            /*TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStream);
+            // XSD validation
+            InputStream inputStreamValidation = file.getInputStream();
+            validator.validate(new StreamSource(inputStreamValidation));
+            inputStreamValidation.close();
 
-            tvMovieShowService.saveTvMovieShows(tvMovieShows);*/
+            // XML parsing
+            InputStream inputStreamParsing = file.getInputStream();
+            TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStreamParsing);
+            inputStreamParsing.close();
+
+            tvMovieShowService.saveTvMovieShows(tvMovieShows);
 
             return ResponseEntity.ok("XML is valid.");
         } catch (SAXException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error validating file: " + e.getMessage());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error reading file: " + e.getMessage());
-        } /*catch (JAXBException e) {
+        } catch (JAXBException e) {
             System.out.println("Error parsing XML: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error parsing XML: " + e.getMessage());
-        }*/
+        }
     }
 
 }
