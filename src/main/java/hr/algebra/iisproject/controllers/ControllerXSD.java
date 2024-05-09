@@ -46,8 +46,8 @@ public class ControllerXSD {
             TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStreamParsing);
             inputStreamParsing.close();
 
-            //TODO: save to database
-            //tvMovieShowService.saveTvMovieShows(tvMovieShows);
+            //H2 database save
+            saveShowsToDatabase(tvMovieShows);
 
             return ResponseEntity.ok("XML is valid.");
         } catch (SAXException e) {
@@ -58,6 +58,10 @@ public class ControllerXSD {
             System.out.println("Error parsing XML: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error parsing XML: " + e.getMessage());
         }
+    }
+
+    private void saveShowsToDatabase(TvMovieShows tvMovieShows) {
+        tvMovieShowService.saveTvMovieShows(tvMovieShows);
     }
 
 }
