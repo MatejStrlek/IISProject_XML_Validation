@@ -1,6 +1,5 @@
 package hr.algebra.iisproject.services;
 
-import hr.algebra.iisproject.models.TvMovieShow;
 import hr.algebra.iisproject.models.TvMovieShows;
 import hr.algebra.iisproject.repos.TvMovieShowRepository;
 import org.slf4j.Logger;
@@ -8,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class TvMovieShowService {

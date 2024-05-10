@@ -1,0 +1,22 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <start>
+        <element name="TvMovieShows">
+            <zeroOrMore>
+                <element name="TvMovieShow">
+                    <interleave>
+                        <element name="Title"><text/></element>
+                        <element name="Episodes"><data type="integer"/></element>
+                        <element name="Year"><text/></element>
+                        <element name="OriginalChannel"><text/></element>
+                        <element name="AmericanCompany"><text/></element>
+                        <element name="Note"><optional><text/></optional></element>
+                        <element name="Technique"><text/></element>
+                        <element name="IMDb"><data type="decimal"/></element>
+                        <element name="GoogleUsers"><text/></element>
+                    </interleave>
+                </element>
+            </zeroOrMore>
+        </element>
+    </start>
+</grammar>
