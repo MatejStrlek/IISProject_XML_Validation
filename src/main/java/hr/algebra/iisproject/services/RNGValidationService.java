@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class XmlValidationService {
+public class RNGValidationService {
     public boolean validate(InputStream xmlStream) {
         try (xmlStream) {
             ValidationDriver driver = new ValidationDriver();

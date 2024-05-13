@@ -2,7 +2,7 @@ package hr.algebra.iisproject.controllers;
 
 import hr.algebra.iisproject.models.TvMovieShows;
 import hr.algebra.iisproject.services.TvMovieShowService;
-import hr.algebra.iisproject.services.XmlValidationService;
+import hr.algebra.iisproject.services.RNGValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import java.io.InputStream;
 public class ControllerRNG {
     private final TvMovieShowService tvMovieShowService;
     @Autowired
-    private XmlValidationService validationService;
+    private RNGValidationService validationService;
 
     public ControllerRNG(TvMovieShowService tvMovieShowService) {
         this.tvMovieShowService = tvMovieShowService;
