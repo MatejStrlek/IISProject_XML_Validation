@@ -15,6 +15,7 @@
     <description>IISProject</description>
     <properties>
         <java.version>17</java.version>
+        <spring-security.version>6.2.4</spring-security.version>
     </properties>
     <repositories>
         <repository>
@@ -40,6 +41,10 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -70,7 +75,6 @@
             <version>20091111</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
