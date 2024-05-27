@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Temperature Checker</title>
+</head>
+<body>
+<h1>City Temperature Checker</h1>
+<form id="cityForm">
+    <label for="cityName">Enter City Name:</label>
+    <input type="text" id="cityName" name="cityName" required>
+    <button type="button" onclick="getTemperature()">Get Temperature</button>
+</form>
+<div id="responseMessage"></div>
+
+<script>
+    function getTemperature() {
+        const cityName = document.getElementById('cityName').value;
+
+        if (!cityName) {
+            document.getElementById('responseMessage').textContent = 'Please enter a city name.';
+            return;
+        }
+
+        const request = {
+            methodName: 'RpcWeatherService.getTemperatureByCity',
+            params: [cityName],
+            id: 1,
+            jsonrpc: '2.0'
+        };
+
+        fetch('/rpc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('responseMessage').textContent = 'Error: ' + data.error.message;
+                } else {
+                    document.getElementById('responseMessage').textContent = 'Temperature in ' + cityName + ': ' + data.result;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('responseMessage').textContent = 'Failed to fetch temperature.';
+            });
+    }
+</script>
+</body>
+</html>
