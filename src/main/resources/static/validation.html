@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XML File Validation</title>
+</head>
+<body>
+<h1>XML File Validation</h1>
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+  <label for="validationType">Choose validation type:</label>
+  <select id="validationType">
+    <option value="/api/xsd/upload">XSD Validation</option>
+    <option value="/api/rng/upload">RNG Validation</option>
+  </select>
+  <br><br>
+  <input type="file" name="file" accept=".xml" required>
+  <button type="button" onclick="uploadFile()">Upload File</button>
+</form>
+<div id="responseMessage"></div>
+
+<script>
+  function uploadFile() {
+    const form = document.getElementById('uploadForm');
+    const formData = new FormData(form);
+    const validationType = document.getElementById('validationType').value;
+    fetch(validationType, {
+      method: 'POST',
+      body: formData,
+    })
+            .then(response => response.text())
+            .then(text => {
+              document.getElementById('responseMessage').textContent = text;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              document.getElementById('responseMessage').textContent = 'Failed to upload file.';
+            });
+  }
+</script>
+</body>
+</html>
