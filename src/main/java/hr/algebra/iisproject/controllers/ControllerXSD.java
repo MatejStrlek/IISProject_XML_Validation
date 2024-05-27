@@ -49,7 +49,7 @@ public class ControllerXSD {
             //H2 database save
             saveShowsToDatabase(tvMovieShows);
 
-            return ResponseEntity.ok("XML is valid.");
+            return ResponseEntity.ok("XML is valid based on XSD file.");
         } catch (SAXException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error validating file: " + e.getMessage());
         } catch (IOException e) {
