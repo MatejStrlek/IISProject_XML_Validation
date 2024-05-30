@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TVMovieShows CRUD</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">TVMovieShows CRUD</h1>
+    <form id="showForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" class="form-control" placeholder="Enter title" required>
+            <div class="invalid-feedback">Please enter a title.</div>
+        </div>
+        <div class="form-group">
+            <label for="episodes">Episodes</label>
+            <input type="number" id="episodes" class="form-control" placeholder="Enter episodes" required>
+            <div class="invalid-feedback">Please enter the number of episodes.</div>
+        </div>
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input type="text" id="year" class="form-control" placeholder="Enter year" required>
+            <div class="invalid-feedback">Please enter the year.</div>
+        </div>
+        <div class="form-group">
+            <label for="originalChannel">Original Channel</label>
+            <input type="text" id="originalChannel" class="form-control" placeholder="Enter original channel" required>
+            <div class="invalid-feedback">Please enter the original channel.</div>
+        </div>
+        <div class="form-group">
+            <label for="americanCompany">American Company</label>
+            <input type="text" id="americanCompany" class="form-control" placeholder="Enter American company" required>
+            <div class="invalid-feedback">Please enter the American company.</div>
+        </div>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <textarea id="note" class="form-control" placeholder="Enter note"></textarea>
+            <div class="invalid-feedback">Please enter a note.</div>
+        </div>
+        <div class="form-group">
+            <label for="technique">Technique</label>
+            <input type="text" id="technique" class="form-control" placeholder="Enter technique" required>
+            <div class="invalid-feedback">Please enter the technique.</div>
+        </div>
+        <div class="form-group">
+            <label for="imdb">IMDb</label>
+            <input type="number" step="0.1" id="imdb" class="form-control" placeholder="Enter IMDb rating" required>
+            <div class="invalid-feedback">Please enter the IMDb rating.</div>
+        </div>
+        <div class="form-group">
+            <label for="googleUsers">Google Users</label>
+            <input type="text" id="googleUsers" class="form-control" placeholder="Enter Google Users rating" required>
+            <div class="invalid-feedback">Please enter the Google Users rating.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Show</button>
+    </form>
+
+    <div class="shows-list mt-5" id="showsList">
+        <h2>TV Movie Shows</h2>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editForm" onsubmit="return validateEditForm()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit TV Movie Show</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editId">
+                    <div class="form-group">
+                        <label for="editTitle">Title</label>
+                        <input type="text" id="editTitle" class="form-control" placeholder="Enter title" required>
+                        <div class="invalid-feedback">Please enter a title.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEpisodes">Episodes</label>
+                        <input type="number" id="editEpisodes" class="form-control" placeholder="Enter episodes" required>
+                        <div class="invalid-feedback">Please enter the number of episodes.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editYear">Year</label>
+                        <input type="text" id="editYear" class="form-control" placeholder="Enter year" required>
+                        <div class="invalid-feedback">Please enter the year.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editOriginalChannel">Original Channel</label>
+                        <input type="text" id="editOriginalChannel" class="form-control" placeholder="Enter original channel" required>
+                        <div class="invalid-feedback">Please enter the original channel.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAmericanCompany">American Company</label>
+                        <input type="text" id="editAmericanCompany" class="form-control" placeholder="Enter American company" required>
+                        <div class="invalid-feedback">Please enter the American company.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNote">Note</label>
+                        <textarea id="editNote" class="form-control" placeholder="Enter note"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTechnique">Technique</label>
+                        <input type="text" id="editTechnique" class="form-control" placeholder="Enter technique" required>
+                        <div class="invalid-feedback">Please enter the technique.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editImdb">IMDb</label>
+                        <input type="number" step="0.1" id="editImdb" class="form-control" placeholder="Enter IMDb rating" required>
+                        <div class="invalid-feedback">Please enter the IMDb rating.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGoogleUsers">Google Users</label>
+                        <input type="text" id="editGoogleUsers" class="form-control" placeholder="Enter Google Users rating" required>
+                        <div class="invalid-feedback">Please enter the Google Users rating.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const apiUrl = 'http://localhost:8080/api/shows';
+
+    document.getElementById('showForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        if (validateForm()) {
+            await createShow();
+            await fetchShows();
+        }
+    });
+
+    document.getElementById('editForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        if (validateEditForm()) {
+            await saveEditShow();
+            await fetchShows();
+            $('#editModal').modal('hide');
+        }
+    });
+
+    function validateForm() {
+        const form = document.getElementById('showForm');
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+            return false;
+        }
+        form.classList.remove('was-validated');
+        return true;
+    }
+
+    function validateEditForm() {
+        const form = document.getElementById('editForm');
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+            return false;
+        }
+        form.classList.remove('was-validated');
+        return true;
+    }
+
+    async function fetchShows() {
+        const response = await fetch(apiUrl);
+        const shows = await response.json();
+        const showsList = document.getElementById('showsList');
+        showsList.innerHTML = '<h2>TV Movie Shows</h2>';
+        shows.forEach(show => {
+            const showItem = document.createElement('div');
+            showItem.className = 'card mb-3';
+            showItem.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">${show.title}</h5>
+                    <p class="card-text"><strong>Episodes:</strong> ${show.episodes}</p>
+                    <p class="card-text"><strong>Year:</strong> ${show.year}</p>
+                    <p class="card-text"><strong>Original Channel:</strong> ${show.originalChannel}</p>
+                    <p class="card-text"><strong>American Company:</strong> ${show.americanCompany}</p>
+                                        <p class="card-text"><strong>Note:</strong> ${show.note}</p>
+                    <p class="card-text"><strong>Technique:</strong> ${show.technique}</p>
+                    <p class="card-text"><strong>IMDb:</strong> ${show.imdb}</p>
+                    <p class="card-text"><strong>Google Users:</strong> ${show.googleUsers}</p>
+                    <button class="btn btn-warning" onclick="showEditModal(${show.id}, '${show.title}', ${show.episodes}, '${show.year}', '${show.originalChannel}', '${show.americanCompany}', '${show.note}', '${show.technique}', ${show.imdb}, '${show.googleUsers}')">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteShow(${show.id})">Delete</button>
+                </div>
+            `;
+            showsList.appendChild(showItem);
+        });
+    }
+
+    async function createShow() {
+        const show = {
+            title: document.getElementById('title').value,
+            episodes: document.getElementById('episodes').value,
+            year: document.getElementById('year').value,
+            originalChannel: document.getElementById('originalChannel').value,
+            americanCompany: document.getElementById('americanCompany').value,
+            note: document.getElementById('note').value,
+            technique: document.getElementById('technique').value,
+            imdb: document.getElementById('imdb').value,
+            googleUsers: document.getElementById('googleUsers').value
+        };
+
+        await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(show)
+        });
+
+        document.getElementById('showForm').reset();
+    }
+
+    function showEditModal(id, title, episodes, year, originalChannel, americanCompany, note, technique, imdb, googleUsers) {
+        document.getElementById('editId').value = id;
+        document.getElementById('editTitle').value = title;
+        document.getElementById('editEpisodes').value = episodes;
+        document.getElementById('editYear').value = year;
+        document.getElementById('editOriginalChannel').value = originalChannel;
+        document.getElementById('editAmericanCompany').value = americanCompany;
+        document.getElementById('editNote').value = note;
+        document.getElementById('editTechnique').value = technique;
+        document.getElementById('editImdb').value = imdb;
+        document.getElementById('editGoogleUsers').value = googleUsers;
+        $('#editModal').modal('show');
+    }
+
+    async function saveEditShow() {
+        const show = {
+            title: document.getElementById('editTitle').value,
+            episodes: document.getElementById('editEpisodes').value,
+            year: document.getElementById('editYear').value,
+            originalChannel: document.getElementById('editOriginalChannel').value,
+            americanCompany: document.getElementById('editAmericanCompany').value,
+            note: document.getElementById('editNote').value,
+            technique: document.getElementById('editTechnique').value,
+            imdb: document.getElementById('editImdb').value,
+            googleUsers: document.getElementById('editGoogleUsers').value
+        };
+
+        const id = document.getElementById('editId').value;
+
+        await fetch(`${apiUrl}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(show)
+        });
+
+        $('#editModal').modal('hide');
+    }
+
+    async function deleteShow(id) {
+        await fetch(`${apiUrl}/${id}`, {
+            method: 'DELETE'
+        });
+
+        await fetchShows();
+    }
+
+    // Initial fetch of shows
+    fetchShows();
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
