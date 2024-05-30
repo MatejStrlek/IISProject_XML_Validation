@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <!-- Definition for a single TvMovieShow -->
     <xs:element name="TvMovieShow">
         <xs:complexType>
             <xs:sequence>
@@ -33,7 +32,6 @@
     <xs:element name="TvMovieShows">
         <xs:complexType>
             <xs:sequence>
-                <!-- Allows multiple TvMovieShow elements -->
                 <xs:element ref="TvMovieShow" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
