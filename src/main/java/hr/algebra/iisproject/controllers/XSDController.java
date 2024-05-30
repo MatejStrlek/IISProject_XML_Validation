@@ -20,10 +20,10 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("/api/xsd")
-public class ControllerXSD {
+public class XSDController {
     private final TvMovieShowService tvMovieShowService;
 
-    public ControllerXSD(TvMovieShowService tvMovieShowService) {
+    public XSDController(TvMovieShowService tvMovieShowService) {
         this.tvMovieShowService = tvMovieShowService;
     }
 

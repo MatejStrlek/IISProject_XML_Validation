@@ -16,12 +16,12 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("/api/rng")
-public class ControllerRNG {
+public class RNGController {
     private final TvMovieShowService tvMovieShowService;
     @Autowired
     private RNGValidationService validationService;
 
-    public ControllerRNG(TvMovieShowService tvMovieShowService) {
+    public RNGController(TvMovieShowService tvMovieShowService) {
         this.tvMovieShowService = tvMovieShowService;
     }
 
