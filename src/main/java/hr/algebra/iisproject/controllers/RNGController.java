@@ -32,15 +32,12 @@ public class RNGController {
         }
 
         try (InputStream inputStream = file.getInputStream()) {
-            // Validate the XML file against the RNG schema
                 String result = validationService.validate(inputStream);
                 if (result.startsWith("XML is valid")) {
-                    // XML parsing
                     InputStream inputStreamParsing = file.getInputStream();
                     TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStreamParsing);
                     inputStreamParsing.close();
 
-                    // Save the parsed data to the database
                     saveShowsToDatabase(tvMovieShows);
 
                     return ResponseEntity.ok(result);

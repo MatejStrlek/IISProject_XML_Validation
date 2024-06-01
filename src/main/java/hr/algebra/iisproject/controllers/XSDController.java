@@ -36,17 +36,14 @@ public class XSDController {
         try {
             Validator validator = XmlUtils.initXSDValidator(getClass().getClassLoader().getResourceAsStream("XSDValidator/tvMovieShows.xsd"));
 
-            // XSD validation
             InputStream inputStreamValidation = file.getInputStream();
             validator.validate(new StreamSource(inputStreamValidation));
             inputStreamValidation.close();
 
-            // XML parsing
             InputStream inputStreamParsing = file.getInputStream();
             TvMovieShows tvMovieShows = XmlUtils.parseXmlToEntity(inputStreamParsing);
             inputStreamParsing.close();
 
-            //H2 database save
             saveShowsToDatabase(tvMovieShows);
 
             return ResponseEntity.ok("XML is valid based on XSD file.");
