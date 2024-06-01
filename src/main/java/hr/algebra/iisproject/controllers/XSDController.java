@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
-import utils.XmlUtils;
+import hr.algebra.iisproject.utils.XmlUtils;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.stream.StreamSource;
