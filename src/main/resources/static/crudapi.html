@@ -169,7 +169,12 @@
     }
 
     async function fetchShows() {
-        const response = await fetch(apiUrl);
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(apiUrl/*, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }*/);
         const shows = await response.json();
         const showsList = document.getElementById('showsList');
         showsList.innerHTML = '<h2>TV Movie Shows</h2>';
@@ -196,6 +201,7 @@
     }
 
     async function createShow() {
+        const token = localStorage.getItem('jwtToken');
         const show = {
             title: document.getElementById('title').value,
             episodes: document.getElementById('episodes').value,
@@ -211,7 +217,8 @@
         await fetch(apiUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json'/*,
+                'Authorization': `Bearer ${token}`*/
             },
             body: JSON.stringify(show)
         });
@@ -234,6 +241,7 @@
     }
 
     async function saveEditShow() {
+        const token = localStorage.getItem('jwtToken');
         const show = {
             title: document.getElementById('editTitle').value,
             episodes: document.getElementById('editEpisodes').value,
@@ -251,7 +259,8 @@
         await fetch(`${apiUrl}/${id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json'/*,
+                'Authorization': `Bearer ${token}`*/
             },
             body: JSON.stringify(show)
         });
@@ -260,8 +269,12 @@
     }
 
     async function deleteShow(id) {
+        const token = localStorage.getItem('jwtToken');
         await fetch(`${apiUrl}/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE'/*,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }*/
         });
 
         await fetchShows();
