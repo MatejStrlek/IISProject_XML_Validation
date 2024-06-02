@@ -81,7 +81,8 @@
                     </div>
                     <div class="form-group">
                         <label for="editEpisodes">Episodes</label>
-                        <input type="number" id="editEpisodes" class="form-control" placeholder="Enter episodes" required>
+                        <input type="number" id="editEpisodes" class="form-control" placeholder="Enter episodes"
+                               required>
                         <div class="invalid-feedback">Please enter the number of episodes.</div>
                     </div>
                     <div class="form-group">
@@ -91,12 +92,14 @@
                     </div>
                     <div class="form-group">
                         <label for="editOriginalChannel">Original Channel</label>
-                        <input type="text" id="editOriginalChannel" class="form-control" placeholder="Enter original channel" required>
+                        <input type="text" id="editOriginalChannel" class="form-control"
+                               placeholder="Enter original channel" required>
                         <div class="invalid-feedback">Please enter the original channel.</div>
                     </div>
                     <div class="form-group">
                         <label for="editAmericanCompany">American Company</label>
-                        <input type="text" id="editAmericanCompany" class="form-control" placeholder="Enter American company" required>
+                        <input type="text" id="editAmericanCompany" class="form-control"
+                               placeholder="Enter American company" required>
                         <div class="invalid-feedback">Please enter the American company.</div>
                     </div>
                     <div class="form-group">
@@ -105,17 +108,20 @@
                     </div>
                     <div class="form-group">
                         <label for="editTechnique">Technique</label>
-                        <input type="text" id="editTechnique" class="form-control" placeholder="Enter technique" required>
+                        <input type="text" id="editTechnique" class="form-control" placeholder="Enter technique"
+                               required>
                         <div class="invalid-feedback">Please enter the technique.</div>
                     </div>
                     <div class="form-group">
                         <label for="editImdb">IMDb</label>
-                        <input type="number" step="0.1" id="editImdb" class="form-control" placeholder="Enter IMDb rating" required>
+                        <input type="number" step="0.1" id="editImdb" class="form-control"
+                               placeholder="Enter IMDb rating" required>
                         <div class="invalid-feedback">Please enter the IMDb rating.</div>
                     </div>
                     <div class="form-group">
                         <label for="editGoogleUsers">Google Users</label>
-                        <input type="text" id="editGoogleUsers" class="form-control" placeholder="Enter Google Users rating" required>
+                        <input type="text" id="editGoogleUsers" class="form-control"
+                               placeholder="Enter Google Users rating" required>
                         <div class="invalid-feedback">Please enter the Google Users rating.</div>
                     </div>
                 </div>
@@ -131,7 +137,7 @@
 <script>
     const apiUrl = 'http://localhost:8080/api/shows';
 
-    document.getElementById('showForm').addEventListener('submit', async function(event) {
+    document.getElementById('showForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         if (validateForm()) {
             await createShow();
@@ -139,7 +145,7 @@
         }
     });
 
-    document.getElementById('editForm').addEventListener('submit', async function(event) {
+    document.getElementById('editForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         if (validateEditForm()) {
             await saveEditShow();
@@ -174,7 +180,6 @@
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-
         }*/);
         const shows = await response.json();
         const showsList = document.getElementById('showsList');
