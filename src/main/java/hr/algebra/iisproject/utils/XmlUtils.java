@@ -42,12 +42,14 @@ public class XmlUtils {
 
     public static List<String> searchXmlFile(File xmlFile, String searchTerm) throws Exception {
         List<String> results = new ArrayList<>();
+
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(xmlFile);
 
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xpath = xPathFactory.newXPath();
+
         XPathExpression expr = xpath.compile("//TvMovieShow[contains(Title, '" + searchTerm + "')]");
 
         NodeList nodes = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
