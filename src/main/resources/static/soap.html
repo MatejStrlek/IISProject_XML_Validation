@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SOAP Search</title>
+</head>
+<body>
+<h1>SOAP Search</h1>
+<form id="searchForm">
+    <label for="term">Search Term:</label>
+    <input type="text" id="term" name="term" required>
+    <button type="submit">Search</button>
+</form>
+<div id="responseMessage"></div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const term = document.getElementById('term').value;
+        const soapRequest = `
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ent="http://algebra.hr/entities">
+               <soapenv:Header/>
+               <soapenv:Body>
+                  <ent:searchRequest>
+                     <ent:term>${term}</ent:term>
+                  </ent:searchRequest>
+               </soapenv:Body>
+            </soapenv:Envelope>`;
+
+        console.log("SOAP Request: ", soapRequest);
+
+        fetch('http://localhost:8080/ws', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/xml',
+            },
+            body: soapRequest,
+        })
+            .then(response => {
+                console.log("Response received: ", response);
+                return response.text();
+            })
+            .then(str => {
+                console.log("Response text: ", str);
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(str, 'text/xml');
+
+                const error = xmlDoc.getElementsByTagName('faultstring')[0];
+                if (error) {
+                    document.getElementById('responseMessage').textContent = 'Error: ' + error.textContent;
+                } else {
+                    const results = xmlDoc.getElementsByTagName('result');
+                    let output = '<h2>Results:</h2>';
+                    for (let i = 0; i < results.length; i++) {
+                        output += `<p>${results[i].textContent}</p>`;
+                    }
+                    document.getElementById('responseMessage').innerHTML = output;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('responseMessage').textContent = 'Error: ' + error.message;
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://algebra.hr/entities"
+           xmlns="http://algebra.hr/entities"
+           elementFormDefault="qualified">
+
+    <xs:element name="TvMovieShow">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Title" type="xs:string"/>
+                <xs:element name="Episodes">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Year" type="xs:string"/>
+                <xs:element name="OriginalChannel" type="xs:string"/>
+                <xs:element name="AmericanCompany" type="xs:string"/>
+                <xs:element name="Note" type="xs:string" minOccurs="0"/>
+                <xs:element name="Technique" type="xs:string"/>
+                <xs:element name="IMDb">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                            <xs:minInclusive value="1.0"/>
+                            <xs:maxInclusive value="10.0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="GoogleUsers" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TvMovieShows">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="TvMovieShow" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="searchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="term" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="searchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="results" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
