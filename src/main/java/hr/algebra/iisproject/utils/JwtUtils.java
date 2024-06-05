@@ -30,6 +30,22 @@ public class JwtUtils {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractUsernameFromRefreshToken(String token) {
+        return extractClaimFromRefreshToken(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaimFromRefreshToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaimsFromRefreshToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaimsFromRefreshToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(REFRESH_SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -78,22 +94,6 @@ public class JwtUtils {
     public Boolean validateRefreshToken(String token, UserDetails userDetails) {
         final String username = extractUsernameFromRefreshToken(token);
         return (username.equals(userDetails.getUsername()) && !isRefreshTokenExpired(token));
-    }
-
-    public String extractUsernameFromRefreshToken(String token) {
-        return extractClaimFromRefreshToken(token, Claims::getSubject);
-    }
-
-    public <T> T extractClaimFromRefreshToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaimsFromRefreshToken(token);
-        return claimsResolver.apply(claims);
-    }
-
-    private Claims extractAllClaimsFromRefreshToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(REFRESH_SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
     }
 
     private Boolean isRefreshTokenExpired(String token) {
