@@ -1,7 +1,7 @@
 package hr.algebra.iisproject.controllers;
 
-import hr.algebra.iisproject.models.AuthRequest;
-import hr.algebra.iisproject.models.AuthResponse;
+import hr.algebra.iisproject.models.RefreshRequest;
+import hr.algebra.iisproject.models.RefreshResponse;
 import hr.algebra.iisproject.models.AuthenticationRequest;
 import hr.algebra.iisproject.models.AuthenticationResponse;
 import hr.algebra.iisproject.services.MyUserDetailsService;
@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import hr.algebra.iisproject.utils.JwtUtils;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -51,8 +49,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<?> refreshAuthenticationToken(@RequestBody AuthRequest authRequest) {
-        String refreshToken = authRequest.getRefreshToken();
+    public ResponseEntity<?> refreshAuthenticationToken(@RequestBody RefreshRequest refreshRequest) {
+        String refreshToken = refreshRequest.getRefreshToken();
         String username = jwtUtils.extractUsernameFromRefreshToken(refreshToken);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
@@ -60,7 +58,7 @@ public class AuthenticationController {
             final String newAccessToken = jwtUtils.generateToken(userDetails);
             final String newRefreshToken = jwtUtils.generateRefreshToken(userDetails);
 
-            return ResponseEntity.ok(new AuthResponse(newAccessToken, newRefreshToken));
+            return ResponseEntity.ok(new RefreshResponse(newAccessToken, newRefreshToken));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token");
         }
