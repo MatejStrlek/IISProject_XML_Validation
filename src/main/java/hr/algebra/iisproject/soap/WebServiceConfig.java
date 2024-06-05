@@ -32,7 +32,7 @@ public class WebServiceConfig {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("EntitiesPortType");
         definition.setLocationUri("/ws");
-        definition.setTargetNamespace("http://local.gg/entities");
+        definition.setTargetNamespace("http://iislocal.gg/entities");
         definition.setSchema(entitiesSchema);
         return definition;
     }

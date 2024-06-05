@@ -20,7 +20,7 @@ import java.util.List;
 @Endpoint
 public class EntitiesEndpoint {
     private static final Logger logger = LoggerFactory.getLogger(EntitiesEndpoint.class);
-    private static final String NAMESPACE_URI = "http://local.gg/entities";
+    private static final String NAMESPACE_URI = "http://iislocal.gg/entities";
     private final TvMovieShowService tvMovieShowService;
 
     public EntitiesEndpoint(TvMovieShowService tvMovieShowService) {
