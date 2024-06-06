@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://iislocal.gg/entities"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://iislocal.gg/entities"
+                  targetNamespace="http://iislocal.gg/entities">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns="http://iislocal.gg/entities"
+                   elementFormDefault="qualified"
+                   targetNamespace="http://iislocal.gg/entities">
+            <xs:element name="TvMovieShow">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Title" type="xs:string"/>
+                        <xs:element name="Episodes">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:integer">
+                                    <xs:minInclusive value="1"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="Year" type="xs:string"/>
+                        <xs:element name="OriginalChannel" type="xs:string"/>
+                        <xs:element name="AmericanCompany" type="xs:string"/>
+                        <xs:element name="Note" type="xs:string" minOccurs="0"/>
+                        <xs:element name="Technique" type="xs:string"/>
+                        <xs:element name="IMDb">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:minInclusive value="1.0"/>
+                                    <xs:maxInclusive value="10.0"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="GoogleUsers" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TvMovieShows">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="TvMovieShow" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="term" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="results" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="searchResponse">
+        <wsdl:part element="tns:searchResponse" name="searchResponse"/>
+    </wsdl:message>
+    <wsdl:message name="searchRequest">
+        <wsdl:part element="tns:searchRequest" name="searchRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="EntitiesPortType">
+        <wsdl:operation name="search">
+            <wsdl:input message="tns:searchRequest" name="searchRequest"/>
+            <wsdl:output message="tns:searchResponse" name="searchResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EntitiesPortTypeSoap11" type="tns:EntitiesPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="search">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="searchRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="searchResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EntitiesPortTypeService">
+        <wsdl:port binding="tns:EntitiesPortTypeSoap11" name="EntitiesPortTypeSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

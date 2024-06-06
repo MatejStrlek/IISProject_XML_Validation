@@ -3,6 +3,7 @@ package hr.algebra.iisproject.soap;
 import hr.algebra.iisproject.models.TvMovieShow;
 import hr.algebra.iisproject.models.TvMovieShows;
 import hr.algebra.iisproject.services.TvMovieShowService;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.util.List;
 
 @Endpoint
+@WebService
 public class EntitiesEndpoint {
     private static final Logger logger = LoggerFactory.getLogger(EntitiesEndpoint.class);
     private static final String NAMESPACE_URI = "http://iislocal.gg/entities";
@@ -25,6 +27,10 @@ public class EntitiesEndpoint {
 
     public EntitiesEndpoint(TvMovieShowService tvMovieShowService) {
         this.tvMovieShowService = tvMovieShowService;
+    }
+
+    public EntitiesEndpoint() {
+        this.tvMovieShowService = null;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "searchRequest")
