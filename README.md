@@ -18,15 +18,14 @@ Validate the generated XML file from the SOAP service against a predefined XSD s
 An XML-RPC server application that retrieves the current temperature for a given city from the DHMZ weather service.
 
 ### REST API Integration with Security
-Integrate with a public REST API using security keys, or implement a custom REST API with JWT token-based security.
+Integrate with a public REST API using security keys with JWT token-based security.
 
 ### Client Application
-Develop a client desktop or web application (Java or C#) to allow users to invoke the services from the above steps.
+Web frontend application in Java made to allow users to invoke the services from the above steps.
 
 ## Technologies Used
 - Spring Boot
-- Spring MVC
-- Spring Security (for JWT)
+- JWT for Security
 - JAXB
 - XSD/RNG validation
 - SOAP
